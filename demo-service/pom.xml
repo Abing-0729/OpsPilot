@@ -9,14 +9,11 @@
     </parent>
 
     <groupId>com.orders</groupId>
-    <artifactId>task-service</artifactId>
+    <artifactId>demo-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo-orders-service</name>
-    <description>demo-orders-service</description>
+    <name>demo-service</name>
+    <description>demo-service</description>
 
-    <properties>
-        <spring-cloud-nacos.version>2025.1.0.0</spring-cloud-nacos.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,21 +26,18 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Nacos 相关 starter，版本由父 POM 的 BOM 管理，无需写 version -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${spring-cloud-nacos.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${spring-cloud-nacos.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>

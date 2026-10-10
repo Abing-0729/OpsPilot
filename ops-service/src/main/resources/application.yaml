@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ops-service
+  config:
+    import:
+      - optional:nacos:OpsPilot-starter?group=application
+  autoconfigure:
+    exclude:
+      - com.alibaba.cloud.nacos.endpoint.NacosConfigEndpointAutoConfiguration
+      - com.alibaba.cloud.nacos.endpoint.NacosDiscoveryEndpointAutoConfiguration
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_SERVER_ADDR}
+        username: ${NACOS_USERNAME}
+        password: ${NACOS_PASSWORD}
+        namespace: public
+        group: DEFAULT_GROUP
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+        username: ${NACOS_USERNAME}
+        password: ${NACOS_PASSWORD}
+  datasource:
+    url: jdbc:mysql://localhost:3306/ops_pilot?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    username: root
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver

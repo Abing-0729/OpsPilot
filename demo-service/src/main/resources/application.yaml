@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: demo-orders-service
+    name: demo-service
   config:
     import:
       - optional:nacos:OpsPilot-starter?group=application
