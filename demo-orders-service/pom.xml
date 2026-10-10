@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.orders</groupId>
-    <artifactId>demo-orders-service</artifactId>
+    <artifactId>task-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo-orders-service</name>
     <description>demo-orders-service</description>
