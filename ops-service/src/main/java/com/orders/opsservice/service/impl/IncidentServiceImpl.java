@@ -7,7 +7,6 @@ import com.orders.opsservice.service.IncidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,19 +24,16 @@ public class IncidentServiceImpl implements IncidentService {
         // 1. 生成故障事件编号
         String eventNo = "INCIDENT_" + UUID.randomUUID();
 
-        // 2. 获取当前时间
-        LocalDateTime now = LocalDateTime.now();
 
-        // 3. 组装故障实体
+        // 2. 组装故障实体
         Incident incident = Incident.builder()
-                .EventNo(eventNo)
-                .ServiceName(incidentCreateDTO.getServiceName())
-                .ServiceVersion(incidentCreateDTO.getServiceVersion())
-                .EventType(incidentCreateDTO.getEventType())
-                .Severity(incidentCreateDTO.getSeverity())
-                .Description(incidentCreateDTO.getDescription())
-                .Status("DETECTED")
-                .CreatedAt(now)
+                .eventNo(eventNo)
+                .serviceName(incidentCreateDTO.getServiceName())
+                .serviceVersion(incidentCreateDTO.getServiceVersion())
+                .eventType(incidentCreateDTO.getEventType())
+                .severity(incidentCreateDTO.getSeverity())
+                .description(incidentCreateDTO.getDescription())
+                .status("DETECTED")
                 .build();
 
         // 4. 保存到数据库
@@ -53,7 +49,7 @@ public class IncidentServiceImpl implements IncidentService {
      * @return 故障事件实体
      */
     @Override
-    public Incident getById(String id) {
+    public Incident getById(Long id) {
         return incidentMapper.selectById(id);
     }
 

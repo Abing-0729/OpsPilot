@@ -22,13 +22,13 @@ public class IncidentController {
      * @return 故障事件
      */
     @PostMapping
-    public Result<Void> CreateIncident(@RequestBody IncidentCreateDTO incidentCreateDTO) {
+    public Result<Void> createIncident(@RequestBody IncidentCreateDTO incidentCreateDTO) {
         incidentService.create(incidentCreateDTO);
         return Result.success();
     }
 
     @GetMapping("/{id}")
-    public Result<Incident> getIncident(@PathVariable String id) {
+    public Result<Incident> getIncident(@PathVariable Long id) {
         return Result.success(incidentService.getById(id));
     }
 
@@ -36,9 +36,4 @@ public class IncidentController {
     public Result<List<Incident>> getAllIncidents() {
         return Result.success(incidentService.list());
     }
-
-//    @GetMapping("/check-service")
-//    public Result<String> checkService() {
-//
-//    }
 }

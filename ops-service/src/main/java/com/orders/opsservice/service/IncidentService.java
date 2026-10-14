@@ -2,11 +2,10 @@ package com.orders.opsservice.service;
 
 import com.orders.opsservice.dto.IncidentCreateDTO;
 import com.orders.opsservice.entity.Incident;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface IncidentService {
     /**
      * 创建故障
@@ -20,7 +19,7 @@ public interface IncidentService {
      * @param id 故障事件ID
      * @return 故障事件实体
      */
-    Incident getById(String id);
+    Incident getById(Long id);
 
     /**
      * 查询所有故障事件
