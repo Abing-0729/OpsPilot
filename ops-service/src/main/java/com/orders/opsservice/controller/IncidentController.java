@@ -2,8 +2,10 @@ package com.orders.opsservice.controller;
 
 import com.orders.opscommon.common.Result;
 import com.orders.opsservice.dto.IncidentCreateDTO;
+import com.orders.opsservice.dto.IncidentUpdateDTO;
 import com.orders.opsservice.entity.Incident;
 import com.orders.opsservice.service.IncidentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +24,14 @@ public class IncidentController {
      * @return 故障事件
      */
     @PostMapping
-    public Result<Void> createIncident(@RequestBody IncidentCreateDTO incidentCreateDTO) {
-        incidentService.create(incidentCreateDTO);
-        return Result.success();
+    public Result<Incident> createIncident(@Valid @RequestBody IncidentCreateDTO incidentCreateDTO) {
+        return Result.success(incidentService.create(incidentCreateDTO));
+    }
+
+    @PutMapping("/{id}")
+    public Result<Incident> updateIncident(@PathVariable Long id,
+                                           @Valid @RequestBody IncidentUpdateDTO incidentUpdateDTO) {
+        return Result.success(incidentService.update(id, incidentUpdateDTO));
     }
 
     @GetMapping("/{id}")

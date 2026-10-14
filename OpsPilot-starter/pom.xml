@@ -6,7 +6,6 @@
         <groupId>com.pilot</groupId>
         <artifactId>Ops-pilot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.orders</groupId>
     <artifactId>OpsPilot-starter</artifactId>
