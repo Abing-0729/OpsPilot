@@ -14,4 +14,11 @@ public class DemoCheckService {
     public Map<String, Object> check() {
         return demoServiceClient.health();
     }
+
+    /**
+     * 调用 demo-service 的慢接口，用于复现远程调用超时故障
+     */
+    public String slowCheck() {
+        return demoServiceClient.slowQuery();
+    }
 }

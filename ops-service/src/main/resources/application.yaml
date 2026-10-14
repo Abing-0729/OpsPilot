@@ -23,6 +23,12 @@ spring:
         server-addr: ${NACOS_SERVER_ADDR}
         username: ${NACOS_USERNAME}
         password: ${NACOS_PASSWORD}
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 500
+            read-timeout: 1000
   datasource:
     url: jdbc:mysql://localhost:3306/ops_pilot?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root

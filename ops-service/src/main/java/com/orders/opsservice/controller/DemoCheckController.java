@@ -20,4 +20,12 @@ public class DemoCheckController {
     public Result<Map<String, Object>> checkDemo() {
         return Result.success(demoCheckService.check());
     }
+
+    /**
+     * 故障复现入口：调用 demo-service 慢接口，预期触发 Feign 读超时
+     */
+    @GetMapping("/check-demo-slow")
+    public Result<String> checkDemoSlow() {
+        return Result.success(demoCheckService.slowCheck());
+    }
 }

@@ -10,4 +10,7 @@ public interface DemoServiceClient {
 
     @GetMapping("actuator/health")
     Map<String, Object> health();
+
+    @GetMapping("api/demo/orders/slow")
+    String slowQuery();
 }

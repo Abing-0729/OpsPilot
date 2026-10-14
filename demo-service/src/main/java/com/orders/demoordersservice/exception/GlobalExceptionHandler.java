@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -20,6 +21,16 @@ public class GlobalExceptionHandler {
         log.error("数据库故障：{}", ex.getMessage(), ex);
         return ResponseEntity.status(503)
                 .body(Result.error(503, "数据库暂时不可用"));
+    }
+
+    /**
+     * 静态资源不存在（典型场景：浏览器自动请求 /favicon.ico），
+     * 按 404 静默处理，不打 error 日志
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Result<Void>> handleNoResource(NoResourceFoundException ex) {
+        log.debug("静态资源不存在：{}", ex.getResourcePath());
+        return ResponseEntity.status(404).body(Result.error(404, "资源不存在"));
     }
 
     /**
