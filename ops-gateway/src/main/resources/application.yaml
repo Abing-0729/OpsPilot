@@ -1,0 +1,26 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: ops-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+        username: ${NACOS_USERNAME}
+        password: ${NACOS_PASSWORD}
+        namespace: public
+        group: DEFAULT_GROUP
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: demo-service
+              uri: lb://demo-service
+              predicates:
+                - Path=/api/demo/**
+            - id: ops-service
+              uri: lb://ops-service
+              predicates:
+                - Path=/api/incidents/**,/api/check-incidents/**

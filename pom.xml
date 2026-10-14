@@ -15,6 +15,7 @@
         <module>OpsPilot-starter</module>
         <module>ops-service</module>
         <module>ops-common</module>
+        <module>ops-gateway</module>
     </modules>
 
     <groupId>com.pilot</groupId>

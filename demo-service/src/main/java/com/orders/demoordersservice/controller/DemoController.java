@@ -1,9 +1,13 @@
 package com.orders.demoordersservice.controller;
 
 import com.orders.demoordersservice.service.DemoService;
+import com.orders.opscommon.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -21,7 +25,7 @@ public class DemoController {
     }
 
     @GetMapping("/orders/{id}")
-    public Map<String, Object> getOrder(
+    public Result<Map<String, Object>> getOrder(
             @PathVariable Long id) {
 
         log.info("收到订单查询请求，orderId={}", id);
@@ -30,21 +34,21 @@ public class DemoController {
     }
 
     @GetMapping("/orders/slow")
-    public String slowRequest() throws InterruptedException {
+    public Result<String> slowRequest() throws InterruptedException {
         log.info("收到慢请求，开始处理");
 
         return demoService.slowRequest();
     }
 
     @GetMapping("/orders/error")
-    public String triggerError() {
+    public Result<String> triggerError() {
         log.warn("收到故障注入请求：内部异常");
 
         return demoService.triggerError();
     }
 
     @GetMapping("/orders/db-error")
-    public String triggerDatabaseError() {
+    public Result<String> triggerDatabaseError() {
         log.warn("收到故障注入请求：模拟数据库故障");
 
         return demoService.triggerDatabaseError();

@@ -1,5 +1,6 @@
 package com.orders.demoordersservice.service;
 
+import com.orders.opscommon.common.Result;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -7,24 +8,24 @@ import java.util.Map;
 @Service
 public class DemoService {
 
-    public Map<String, Object> getOrder(Long orderId) {
-        return Map.of(
+    public Result<Map<String, Object>> getOrder(Long orderId) {
+        return Result.success(Map.of(
                 "orderId", orderId,
                 "status", "CREATED",
                 "message", "订单查询成功"
-        );
+        ));
     }
 
-    public String slowRequest() throws InterruptedException {
+    public Result<String> slowRequest() throws InterruptedException {
         Thread.sleep(3000);
-        return "请求处理完成，耗时约 3 秒";
+        return Result.success("请求处理完成，耗时约 3 秒");
     }
 
-    public String triggerError() {
-        throw new IllegalStateException("模拟订单服务内部异常");
+    public Result<String> triggerError() {
+        return Result.error("模拟订单服务内部异常");
     }
 
-    public String triggerDatabaseError() {
+    public Result<String> triggerDatabaseError() {
         throw new DatabaseUnavailableException(
                 "模拟数据库连接失败"
         );
