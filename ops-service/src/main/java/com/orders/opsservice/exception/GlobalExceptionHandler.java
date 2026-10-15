@@ -76,6 +76,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理服务降级异常：熔断器开启时，降级方法抛出该异常，统一转 503
+     */
+    @ExceptionHandler(ServiceDegradedException.class)
+    public ResponseEntity<Result<Void>> handleServiceDegraded(ServiceDegradedException e) {
+        log.warn("服务降级：{}", e.getMessage());
+        return ResponseEntity.status(503).body(Result.error(503, e.getMessage()));
+    }
+    /**
      * 兜底：500。堆栈只进日志，不外泄给调用方
      */
     @ExceptionHandler(Exception.class)

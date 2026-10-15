@@ -27,6 +27,7 @@ public class RemoteCallRecorder {
 
     public static final String EVENT_TYPE_TIMEOUT = "REMOTE_CALL_TIMEOUT";
     public static final String EVENT_TYPE_ERROR = "REMOTE_CALL_ERROR";
+    public static final String EVENT_TYPE_CIRCUIT_OPEN = "CIRCUIT_OPEN";
 
     private final IncidentService incidentService;
 
@@ -66,6 +67,29 @@ public class RemoteCallRecorder {
             log.warn("故障已记录 service={} type={} traceId={}", targetService, eventType, traceId);
         } catch (Exception ex) {
             log.error("故障事件记录失败，不影响主流程", ex);
+        }
+    }
+
+    /**
+     * 熔断器已开门：请求被快速拒绝，没有真的发出去。
+     * 与 REMOTE_CALL_TIMEOUT 区分开——那是"调用失败"，这是"熔断保护"。
+     */
+    public void recordCircuitOpen(String targetService) {
+        try {
+            String traceId = MDC.get("traceId");
+
+            IncidentCreateDTO dto = new IncidentCreateDTO();
+            dto.setServiceName(targetService);
+            dto.setEventType(EVENT_TYPE_CIRCUIT_OPEN);
+            dto.setSeverity("MEDIUM");
+            dto.setDescription(String.format(
+                    "%s 熔断器已开启，请求被快速拒绝（降级），未发起真实调用。traceId=%s",
+                    targetService, traceId));
+
+            incidentService.create(dto);
+            log.warn("熔断降级已记录 service={} traceId={}", targetService, traceId);
+        } catch (Exception ex) {
+            log.error("熔断事件记录失败，不影响主流程", ex);
         }
     }
 
