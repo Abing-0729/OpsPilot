@@ -24,3 +24,7 @@ spring:
               uri: lb://ops-service
               predicates:
                 - Path=/api/incidents/**,/api/check-incidents/**
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %5level [%thread] [traceId=%X{traceId}] %logger{20} - %msg%n"

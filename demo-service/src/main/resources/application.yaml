@@ -38,4 +38,6 @@ management:
         show-details: never
 logging:
   level:
-    com.ops.demo: INFO
+    com.orders: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %5level [%thread] [traceId=%X{traceId}] %logger{20} - %msg%n"

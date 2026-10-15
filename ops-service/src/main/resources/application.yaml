@@ -34,3 +34,6 @@ spring:
     username: root
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %5level [%thread] [traceId=%X{traceId}] %logger{20} - %msg%n"
